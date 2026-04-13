@@ -56,6 +56,9 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-3">
             {isLoggedIn ? (
               <>
+                <span className="text-xs text-muted-foreground font-heading mr-1">
+                  Hola, {user?.name?.split(" ")[0] ?? ""}
+                </span>
                 <Button asChild variant="cta" size="sm">
                   <Link to="/dashboard">Dashboard</Link>
                 </Button>
