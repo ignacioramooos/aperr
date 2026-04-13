@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navLinks = [
   { label: "Nosotros", path: "/nosotros" },
   { label: "Programa", path: "/programa" },
   { label: "Recursos", path: "/recursos" },
+  { label: "Brokers", path: "/brokers" },
   { label: "Partners", path: "/partners" },
   { label: "Contacto", path: "/contacto" },
 ];
@@ -15,6 +17,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { isLoggedIn, login, logout } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -50,10 +53,26 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="hidden md:block">
-            <Button asChild variant="cta" size="sm">
-              <Link to="/registro">Inscribite</Link>
-            </Button>
+          <div className="hidden md:flex items-center gap-3">
+            {isLoggedIn ? (
+              <>
+                <Button asChild variant="cta" size="sm">
+                  <Link to="/dashboard">Dashboard</Link>
+                </Button>
+                <Button variant="ghost" size="sm" onClick={logout} className="text-muted-foreground">
+                  Salir
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" size="sm" onClick={login} className="text-muted-foreground gap-1.5">
+                  <LogIn size={14} /> Log In
+                </Button>
+                <Button asChild variant="cta" size="sm">
+                  <Link to="/registro">Inscribite</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           <button
@@ -81,9 +100,27 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
-          <Button asChild variant="cta" size="cta" className="w-full">
-            <Link to="/registro">Inscribite</Link>
-          </Button>
+          <div className="space-y-3">
+            {isLoggedIn ? (
+              <>
+                <Button asChild variant="cta" size="cta" className="w-full">
+                  <Link to="/dashboard">Dashboard</Link>
+                </Button>
+                <Button variant="cta-outline" size="cta" className="w-full" onClick={logout}>
+                  Cerrar sesión
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="cta-outline" size="cta" className="w-full" onClick={login}>
+                  Log In
+                </Button>
+                <Button asChild variant="cta" size="cta" className="w-full">
+                  <Link to="/registro">Inscribite</Link>
+                </Button>
+              </>
+            )}
+          </div>
         </div>
       )}
     </>
