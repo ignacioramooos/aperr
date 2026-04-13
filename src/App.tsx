@@ -28,8 +28,7 @@ const AppRoutes = () => {
       <>
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          {/* Public pages still accessible when logged in */}
+          <Route path="/" element={<><Navbar /><main><Index /></main><Footer /></>} />
           <Route path="/nosotros" element={<><Navbar /><main><AboutPage /></main><Footer /></>} />
           <Route path="/programa" element={<><Navbar /><main><ProgramPage /></main><Footer /></>} />
           <Route path="/registro" element={<><Navbar /><main><RegisterPage /></main><Footer /></>} />
