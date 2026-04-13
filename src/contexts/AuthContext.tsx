@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { User as SupabaseUser, Session } from "@supabase/supabase-js";
 
@@ -10,6 +10,7 @@ export interface UserProfile {
   completedClasses: number;
   totalClasses: number;
   publishedTheses: number;
+  onboardingCompleted: boolean;
 }
 
 interface AuthContextType {
@@ -19,6 +20,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<{ error: string | null }>;
   signup: (email: string, password: string, displayName: string) => Promise<{ error: string | null }>;
   logout: () => Promise<void>;
+  refreshProfile: () => Promise<void>;
   loading: boolean;
 }
 
@@ -29,10 +31,14 @@ const AuthContext = createContext<AuthContextType>({
   login: async () => ({ error: null }),
   signup: async () => ({ error: null }),
   logout: async () => {},
+  refreshProfile: async () => {},
   loading: true,
 });
 
-const buildProfile = (supabaseUser: SupabaseUser, profileData?: { display_name?: string | null }): UserProfile => ({
+const buildProfile = (
+  supabaseUser: SupabaseUser,
+  profileData?: { display_name?: string | null; onboarding_completed?: boolean | null }
+): UserProfile => ({
   id: supabaseUser.id,
   name: profileData?.display_name || supabaseUser.user_metadata?.display_name || supabaseUser.email?.split("@")[0] || "Usuario",
   email: supabaseUser.email || "",
@@ -40,6 +46,7 @@ const buildProfile = (supabaseUser: SupabaseUser, profileData?: { display_name?:
   completedClasses: 4,
   totalClasses: 12,
   publishedTheses: 2,
+  onboardingCompleted: profileData?.onboarding_completed ?? false,
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -47,21 +54,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchProfile = async (supabaseUser: SupabaseUser) => {
+  const fetchProfile = useCallback(async (supabaseUser: SupabaseUser) => {
     const { data } = await supabase
       .from("profiles")
-      .select("display_name")
+      .select("display_name, onboarding_completed")
       .eq("user_id", supabaseUser.id)
       .single();
     setUser(buildProfile(supabaseUser, data));
-  };
+  }, []);
+
+  const refreshProfile = useCallback(async () => {
+    if (session?.user) {
+      await fetchProfile(session.user);
+    }
+  }, [session, fetchProfile]);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, newSession) => {
+      async (_event, newSession) => {
         setSession(newSession);
         if (newSession?.user) {
-          // Defer profile fetch to avoid deadlock
           setTimeout(() => fetchProfile(newSession.user), 0);
         } else {
           setUser(null);
@@ -79,7 +91,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [fetchProfile]);
 
   const login = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -103,7 +115,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: !!session, user, session, login, signup, logout, loading }}>
+    <AuthContext.Provider value={{ isLoggedIn: !!session, user, session, login, signup, logout, refreshProfile, loading }}>
       {children}
     </AuthContext.Provider>
   );
