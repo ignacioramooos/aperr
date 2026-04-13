@@ -5,6 +5,7 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 import { Linkedin } from "lucide-react";
 import teamIgnacio from "@/assets/team-ignacio.jpeg";
 import teamNicolas from "@/assets/team-nicolas.jpeg";
+import teamPhoto from "@/assets/team-photo.jpeg";
 
 const team = [
   { name: "Nicolás Sales", age: 17, role: "Co-fundador & Instructor", bio: "El que sabe. Especialista en análisis fundamental y mercados financieros.", photo: teamNicolas },
