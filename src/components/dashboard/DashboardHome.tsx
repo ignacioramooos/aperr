@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { mockModules, mockCommunityPosts } from "@/lib/mockData";
-import { Flame, BookOpen, FileText, Target, MapPin, Clock, CalendarDays } from "lucide-react";
+import { Flame, BookOpen, FileText, Target, MapPin, Clock, CalendarDays, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const DashboardHome = () => {
   const { user } = useAuth();
