@@ -20,6 +20,7 @@ const BrokersPage = () => {
             Opciones reguladas para invertir desde Uruguay. Investigá cada opción antes de abrir una cuenta.
           </p>
           <p className="text-muted-foreground text-sm mb-8 max-w-lg">
+            No somos sponsoreados por ninguno, son solo recomendaciones.
           </p>
         </SectionFade>
 
