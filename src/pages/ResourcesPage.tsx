@@ -22,7 +22,7 @@ const books = [
   { title: "El inversor inteligente", author: "Benjamin Graham", pitch: "La biblia del value investing. Lectura obligatoria." },
   { title: "One Up on Wall Street", author: "Peter Lynch", pitch: "Cómo encontrar buenas inversiones en tu vida cotidiana." },
   { title: "Padre Rico, Padre Pobre", author: "Robert Kiyosaki", pitch: "Introducción accesible a la mentalidad financiera." },
-  { title: "A Random Walk Down Wall Street", author: "Burton Malkiel", pitch: "Perspectiva equilibrada sobre los mercados y la inversión." },
+  { title: "Beating the Street", author: "Peter Lynch", pitch: "Más del legendario Peter Lynch." },
 ];
 
 const ResourcesPage = () => (
