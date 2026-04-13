@@ -76,16 +76,13 @@ const AboutPage = () => (
         <h2 className="text-3xl md:text-4xl text-foreground mb-12">
           Jóvenes que enseñan a jóvenes
         </h2>
-        <div className="grid sm:grid-cols-2 gap-8 max-w-2xl">
+        <div className="space-y-6 max-w-lg">
           {team.map((m) => (
-            <div key={m.name} className="bg-background border border-border rounded-lg overflow-hidden">
-              <div className="aspect-[3/4] overflow-hidden">
-                <img src={m.photo} alt={m.name} className="w-full h-full object-cover object-top" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-heading font-semibold text-foreground text-lg">{m.name}</h3>
+            <div key={m.name} className="flex items-center gap-4">
+              <img src={m.photo} alt={m.name} className="w-14 h-14 rounded-full object-cover object-top shrink-0" />
+              <div>
+                <h3 className="font-heading font-semibold text-foreground text-base">{m.name}</h3>
                 <span className="text-muted-foreground text-sm">{m.role} · {m.age} años</span>
-                <p className="text-muted-foreground text-sm mt-3 leading-relaxed">{m.bio}</p>
               </div>
             </div>
           ))}
