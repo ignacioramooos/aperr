@@ -5,6 +5,7 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 import { Linkedin } from "lucide-react";
 import teamIgnacio from "@/assets/team-ignacio.jpeg";
 import teamNicolas from "@/assets/team-nicolas.jpeg";
+import teamPhoto from "@/assets/team-photo.jpeg";
 
 const team = [
   { name: "Nicolás Sales", age: 17, role: "Co-fundador & Instructor", bio: "El que sabe. Especialista en análisis fundamental y mercados financieros.", photo: teamNicolas },
@@ -60,9 +61,7 @@ const AboutPage = () => (
             </div>
           </div>
           <div className="md:col-span-2">
-            <div className="bg-secondary rounded-lg aspect-[3/4] flex items-center justify-center">
-              <span className="text-muted-foreground/30 text-xs font-heading">[Foto del equipo]</span>
-            </div>
+            <img src={teamPhoto} alt="El equipo de InvertíUY" className="rounded-lg w-full h-full object-cover" />
           </div>
         </div>
       </div>
