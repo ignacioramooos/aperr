@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import SectionFade from "@/components/SectionFade";
 import { CheckCircle2, MapPin, Calendar, Gift, Users } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const departments = [
   "Montevideo", "Canelones", "Maldonado", "Salto", "Colonia", "Paysandú",
@@ -12,11 +13,22 @@ const departments = [
 const hearOptions = ["Instagram", "Un amigo/a", "Mi liceo", "LinkedIn", "Google", "Otro"];
 
 const RegisterPage = () => {
+  const { user } = useAuth();
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [form, setForm] = useState({
     name: "", age: "", school: "", department: "", email: "", phone: "", hearAbout: "", why: "", consent: false,
   });
+
+  useEffect(() => {
+    if (user) {
+      setForm((p) => ({
+        ...p,
+        name: user.name || p.name,
+        email: user.email || p.email,
+      }));
+    }
+  }, [user]);
 
   const set = (field: string, value: string | boolean) => {
     setForm((p) => ({ ...p, [field]: value }));
