@@ -17,7 +17,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
-  const { isLoggedIn, login, logout } = useAuth();
+  const { isLoggedIn, user, login, logout } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -56,6 +56,9 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-3">
             {isLoggedIn ? (
               <>
+                <span className="text-xs text-muted-foreground font-heading mr-1">
+                  Hola, {user?.name?.split(" ")[0] ?? ""}
+                </span>
                 <Button asChild variant="cta" size="sm">
                   <Link to="/dashboard">Dashboard</Link>
                 </Button>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { Home, BookOpen, Wrench, Users, FileText, Settings, LogOut, Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Home, BookOpen, Wrench, Users, FileText, Settings, LogOut, Menu, X, ExternalLink } from "lucide-react";
 
 type DashboardTab = "home" | "progress" | "tools" | "community" | "theses" | "settings";
 
@@ -53,7 +54,14 @@ const DashboardLayout = ({ activeTab, onTabChange, children }: DashboardLayoutPr
             </button>
           ))}
         </nav>
-        <div className="p-3 border-t border-border">
+        <div className="p-3 border-t border-border space-y-1">
+          <Link
+            to="/"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-heading text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+          >
+            <ExternalLink size={18} />
+            Ir al sitio
+          </Link>
           <button
             onClick={logout}
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-heading text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
