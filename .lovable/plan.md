@@ -1,46 +1,16 @@
 
 
-## Plan: Content Library + Admin Panel
+## Plan: Consolidate newsletter + add 1D/1W chart ranges
 
-### What We're Building
+### Issue 1: Two newsletter sections
+The newsletter appears twice: once as `NewsletterSection` in `Index.tsx` (middle of homepage) and once in `Footer.tsx` (rendered on every page). The fix is to remove the `NewsletterSection` from `Index.tsx` and keep only the one in the footer (which already appears at the bottom of every page).
 
-1. **Content Library** (student-facing dashboard tab "Clases") — browse recorded classes (YouTube unlisted embeds), articles, and materials organized by modules
-2. **Admin Panel** (separate `/admin` route) — full CRUD for managing classes, articles, and materials, restricted to verified admin users
+**Files to edit:**
+- `src/pages/Index.tsx` — Remove the `NewsletterSection` component definition (lines 245-258) and remove it from the `Index` render (line 268). Reorder so `FinalCTA` is last before footer.
 
-### Database Changes (Migration)
+### Issue 2: Add 1D and 1W chart ranges
 
-**New tables:**
-
-- `user_roles` — role-based access (admin/user) using `app_role` enum and a `has_role()` security definer function
-- `content_items` — unified content table with columns: `id`, `title`, `description`, `type` (enum: `video`, `article`, `material`), `youtube_url` (for unlisted video embeds), `content_body` (rich text for articles), `file_url` (for downloadable materials), `module_name`, `thumbnail_url`, `duration_minutes`, `sort_order`, `is_published`, `created_by` (user_id), `created_at`, `updated_at`
-
-**RLS policies:**
-- Everyone authenticated can SELECT published content
-- Only admins (via `has_role()`) can INSERT/UPDATE/DELETE
-
-**Seed data:** Insert your user as admin in `user_roles`
-
-### Frontend Components
-
-**Student side:**
-- `ContentLibrary.tsx` — new dashboard tab showing content cards grouped by type (Videos, Artículos, Materiales), with YouTube iframe embeds for videos
-- Add "Clases" tab to `DashboardLayout.tsx` nav items
-
-**Admin side:**
-- `AdminPage.tsx` — route `/admin` protected by role check
-- `AdminLayout.tsx` — sidebar with sections: Clases, Artículos, Materiales
-- `AdminContentManager.tsx` — table listing all content with add/edit/delete
-- `ContentFormDialog.tsx` — modal form for creating/editing content (title, description, type selector, YouTube URL input, article body textarea, file URL, module, publish toggle)
-
-### Routing
-
-- Add `/admin` route in `App.tsx`, only accessible to authenticated users with admin role
-- Add admin link in dashboard sidebar (visible only to admins)
-
-### Technical Details
-
-- Admin role check uses `has_role(auth.uid(), 'admin')` security definer function to avoid RLS recursion
-- YouTube embeds use `iframe` with `youtube-nocookie.com` for privacy
-- Content type enum controls which fields are shown in the form (video → YouTube URL, article → body text, material → file URL)
-- No file upload needed initially — videos are YouTube URLs, materials are external links
+**Files to edit:**
+- `supabase/functions/stock-history/index.ts` — Add `"1d"` and `"5d"` to `VALID_RANGES`. For `"1d"`, use `interval=5m&range=1d`. For `"5d"`, use `interval=15m&range=5d`. For the rest keep `interval=1d`.
+- `src/components/dashboard/PortfolioTab.tsx` — Add `["1d","1D"]` and `["5d","1S"]` to the range selector arrays (both in the stock chart dialog and the portfolio chart if applicable).
 
