@@ -25,7 +25,8 @@ const Footer = () => (
               ["Programa", "/programa"],
               ["Recursos", "/recursos"],
               ["Impacto", "/impacto"],
-              ["Alianzas", "/partners"],
+              ["Análisis", "/analisis"],
+              ["Alianzas", "/alianzas"],
               ["Contacto", "/contacto"],
               ["Inscripción", "/registro"],
             ].map(([label, path]) => (
