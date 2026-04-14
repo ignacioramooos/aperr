@@ -210,7 +210,7 @@ const Toolkit = () => (
       <OpportunityCostCalc />
       <ValuationLite />
       <InvestorQuiz />
-      <Glossary />
+      <DashboardGlossary />
     </div>
   </div>
 );
