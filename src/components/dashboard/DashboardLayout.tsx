@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { useUserRole } from "@/hooks/useUserRole";
 import { Link } from "react-router-dom";
-import { Home, BookOpen, Wrench, Users, FileText, Settings, LogOut, Menu, X, ExternalLink, CalendarDays, PlayCircle, Shield, TrendingUp } from "lucide-react";
+import { Home, BookOpen, Wrench, Users, FileText, Settings, LogOut, Menu, X, ExternalLink, CalendarDays, PlayCircle, Shield, TrendingUp, Moon, Sun } from "lucide-react";
 
 type DashboardTab = "home" | "progress" | "tools" | "community" | "theses" | "events" | "content" | "portfolio" | "settings";
 
@@ -34,6 +35,7 @@ const mobileNav: { id: DashboardTab; label: string; icon: typeof Home }[] = [
 const DashboardLayout = ({ activeTab, onTabChange, children }: DashboardLayoutProps) => {
   const { logout } = useAuth();
   const { isAdmin } = useUserRole();
+  const { theme, toggleTheme } = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -60,6 +62,15 @@ const DashboardLayout = ({ activeTab, onTabChange, children }: DashboardLayoutPr
           ))}
         </nav>
         <div className="p-3 border-t border-border space-y-1">
+          <button
+            onClick={toggleTheme}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-xs font-heading text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+            title="Atajo: M"
+          >
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            {theme === "dark" ? "Modo claro" : "Modo oscuro"}
+            <kbd className="ml-auto text-[10px] border border-border rounded px-1 py-0.5 text-muted-foreground">M</kbd>
+          </button>
           {isAdmin && (
             <Link
               to="/admin"
