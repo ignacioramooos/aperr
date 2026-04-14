@@ -16,7 +16,7 @@ export const categoryLabels: Record<GlossaryCategory, string> = {
   'mercado': 'Mercado',
 };
 
-export const glossaryTerms: GlossaryTerm[] = [
+export const glossaryTerms: GlossaryTerm[] = ([
   { term: "Acción", termEn: "Stock / Share", definition: "Unidad de propiedad en una empresa. Quien tiene acciones es dueño parcial de esa empresa y puede beneficiarse de su crecimiento.", example: "Si comprás 10 acciones de Apple, sos dueño de una pequeñísima parte de Apple.", category: "conceptos-basicos" },
   { term: "Activo", termEn: "Asset", definition: "Todo lo que una empresa posee y tiene valor económico. Incluye efectivo, propiedades, inventario y cuentas por cobrar.", example: "Las fábricas, el dinero en el banco y las patentes de Coca-Cola son sus activos.", category: "estados-financieros" },
   { term: "Amortización", termEn: "Amortization", definition: "Distribución del costo de un activo intangible a lo largo de su vida útil. Es similar a la depreciación pero para bienes no físicos.", example: "Si una empresa compra una patente por $100.000 que dura 10 años, amortiza $10.000 por año.", category: "estados-financieros" },
