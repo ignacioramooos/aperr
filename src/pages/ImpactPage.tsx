@@ -74,15 +74,15 @@ const ImpactPage = () => {
               {!loading && (
                 <>
                   <div>
-                    <AnimatedCounter value={totalStudents} />
+                    <AnimatedCounter end={totalStudents} />
                     <p className="text-white/50 text-sm mt-1">Inscriptos totales</p>
                   </div>
                   <div>
-                    <AnimatedCounter value={departments} />
+                    <AnimatedCounter end={departments} />
                     <p className="text-white/50 text-sm mt-1">Departamentos representados</p>
                   </div>
                   <div>
-                    <AnimatedCounter value={lessonsCompleted} />
+                    <AnimatedCounter end={lessonsCompleted} />
                     <p className="text-white/50 text-sm mt-1">Lecciones online completadas</p>
                   </div>
                 </>
