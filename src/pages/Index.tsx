@@ -266,6 +266,7 @@ const Index = () => (
     <ValueProp />
     <HowItWorks />
     <UpcomingClasses />
+    <HomeCaseStudies />
     <NewsletterSection />
     <FinalCTA />
   </>
