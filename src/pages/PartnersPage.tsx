@@ -1,13 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import SectionFade from "@/components/SectionFade";
-import { CheckCircle2 } from "lucide-react";
-
-const partnerCategories = [
-  { name: "Instituciones Educativas", logos: ["UdelaR", "ORT", "UTEC"] },
-  { name: "Organizaciones", logos: ["Teach For All", "JA Uruguay"] },
-  { name: "Empresas", logos: ["Sponsor 1", "Sponsor 2"] },
-];
+import { CheckCircle2, ArrowRight, Handshake } from "lucide-react";
 
 const collaborationOptions = [
   "Ceder un espacio para clases",
@@ -34,57 +29,47 @@ const PartnersPage = () => {
         <div className="container">
           <SectionFade>
             <p className="text-xs font-heading font-medium uppercase tracking-widest text-muted-foreground mb-6">
-              Partners
+              Alianzas
             </p>
             <h1 className="text-3xl md:text-5xl text-foreground max-w-3xl mb-6">
               Construyamos juntos
             </h1>
             <p className="text-muted-foreground text-lg max-w-xl">
-              Instituciones, organizaciones y empresas que apoyan la educación financiera de los jóvenes uruguayos.
+              Buscamos instituciones, organizaciones y empresas que quieran apoyar la educación financiera de los jóvenes uruguayos.
             </p>
           </SectionFade>
         </div>
       </section>
 
+      {/* Empty state — no partners yet */}
       <section className="py-24 md:py-32 border-y border-border">
-        <div className="container">
-          {partnerCategories.map((cat) => (
-            <div key={cat.name} className="mb-16 last:mb-0">
-              <h3 className="text-xs font-heading font-medium uppercase tracking-widest text-muted-foreground mb-6">{cat.name}</h3>
-              <div className="flex flex-wrap gap-4">
-                {cat.logos.map((logo) => (
-                  <div key={logo} className="border border-border rounded-md h-16 px-8 flex items-center justify-center">
-                    <span className="text-muted-foreground/30 font-heading text-xs">{logo}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="py-24 md:py-32">
-        <div className="container max-w-3xl">
-          <p className="text-xs font-heading font-medium uppercase tracking-widest text-muted-foreground mb-12">
-            Qué dicen nuestros aliados
+        <div className="container max-w-2xl text-center">
+          <Handshake size={40} className="mx-auto text-muted-foreground/30 mb-6" />
+          <h2 className="text-2xl md:text-3xl text-foreground mb-4">
+            Estamos buscando nuestros primeros aliados institucionales
+          </h2>
+          <p className="text-muted-foreground text-lg mb-8">
+            ¿Tu organización quiere sumarse a esta iniciativa? Completá el formulario abajo y te contactamos.
           </p>
-          <div className="space-y-12">
-            {[
-              { name: "Dr. María Rodríguez", role: "Directora, Liceo 7 Montevideo", quote: "InvertíUY trajo algo que faltaba en nuestro liceo: una forma accesible y seria de hablar sobre finanzas con los estudiantes." },
-              { name: "Carlos Méndez", role: "Director, JA Uruguay", quote: "La calidad del contenido y el compromiso del equipo son excepcionales para una iniciativa liderada por jóvenes." },
-            ].map((t) => (
-              <blockquote key={t.name} className="border-l border-border pl-8">
-                <p className="text-foreground text-xl font-heading font-medium leading-snug mb-4">"{t.quote}"</p>
-                <footer className="text-sm text-muted-foreground">
-                  <strong className="text-foreground font-medium">{t.name}</strong> — {t.role}
-                </footer>
-              </blockquote>
-            ))}
-          </div>
+          <Button asChild variant="cta" size="cta" className="gap-2">
+            <a href="#aliarse">Quiero ser aliado <ArrowRight size={16} /></a>
+          </Button>
         </div>
       </section>
 
-      <section className="py-24 md:py-32 border-t border-border">
+      {/* Empty testimonials state */}
+      <section className="py-24 md:py-32">
+        <div className="container max-w-3xl text-center">
+          <p className="text-xs font-heading font-medium uppercase tracking-widest text-muted-foreground mb-6">
+            Testimonios
+          </p>
+          <p className="text-muted-foreground text-lg">
+            Todavía no tenemos testimonios publicados. ¡Volvé pronto!
+          </p>
+        </div>
+      </section>
+
+      <section id="aliarse" className="py-24 md:py-32 border-t border-border">
         <div className="container max-w-2xl">
           <p className="text-xs font-heading font-medium uppercase tracking-widest text-muted-foreground mb-4">
             Sumate
