@@ -36,18 +36,14 @@ export interface StockHistoryPoint {
 
 export async function fetchStockPrice(ticker: string): Promise<StockQuote | null> {
   try {
-    const { data, error } = await supabase.functions.invoke("stock-price", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      body: undefined,
-    });
-    // supabase.functions.invoke doesn't support query params well, use fetch directly
     const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+    const session = await supabase.auth.getSession();
+    const token = session.data.session?.access_token || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
     const resp = await fetch(
-      `https://${projectId}.supabase.co/functions/v1/stock-price?ticker=${ticker}`,
+      `https://${projectId}.supabase.co/functions/v1/stock-price?ticker=${encodeURIComponent(ticker)}`,
       {
         headers: {
-          Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${token}`,
           apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
         },
       }
