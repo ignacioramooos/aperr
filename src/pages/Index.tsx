@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import SectionFade from "@/components/SectionFade";
+import HomeCaseStudies from "@/components/HomeCaseStudies";
 import LiveStudentCounter from "@/components/LiveStudentCounter";
 import CohortCountdown from "@/components/CohortCountdown";
 import CapacityBar from "@/components/CapacityBar";
