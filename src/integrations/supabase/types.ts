@@ -14,6 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      case_studies: {
+        Row: {
+          author_first_name: string
+          author_last_initial: string
+          author_school: string | null
+          cohort_label: string | null
+          company_name: string
+          company_sector: string | null
+          company_ticker: string | null
+          content: string
+          created_at: string
+          id: string
+          is_published: boolean
+          key_metrics: Json | null
+          summary: string
+          user_id: string | null
+          verdict: string | null
+        }
+        Insert: {
+          author_first_name: string
+          author_last_initial: string
+          author_school?: string | null
+          cohort_label?: string | null
+          company_name: string
+          company_sector?: string | null
+          company_ticker?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          key_metrics?: Json | null
+          summary: string
+          user_id?: string | null
+          verdict?: string | null
+        }
+        Update: {
+          author_first_name?: string
+          author_last_initial?: string
+          author_school?: string | null
+          cohort_label?: string | null
+          company_name?: string
+          company_sector?: string | null
+          company_ticker?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          key_metrics?: Json | null
+          summary?: string
+          user_id?: string | null
+          verdict?: string | null
+        }
+        Relationships: []
+      }
       certificates: {
         Row: {
           certificate_code: string | null
@@ -282,6 +336,75 @@ export type Database = {
           id?: string
           is_active?: boolean | null
           source?: string | null
+        }
+        Relationships: []
+      }
+      partner_inquiries: {
+        Row: {
+          collaboration_types: string[]
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          message: string | null
+          org_type: string
+          organization: string
+          role: string
+          status: string
+        }
+        Insert: {
+          collaboration_types?: string[]
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          message?: string | null
+          org_type: string
+          organization: string
+          role: string
+          status?: string
+        }
+        Update: {
+          collaboration_types?: string[]
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          message?: string | null
+          org_type?: string
+          organization?: string
+          role?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      partners: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          is_active: boolean
+          logo_url: string | null
+          name: string
+          website_url: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          name: string
+          website_url?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          name?: string
+          website_url?: string | null
         }
         Relationships: []
       }
