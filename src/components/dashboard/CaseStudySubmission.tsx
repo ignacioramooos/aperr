@@ -60,7 +60,6 @@ const CaseStudySubmission = () => {
 
     setSubmitting(true);
     const { error } = await supabase.from("case_studies").insert({
-      user_id: user.id,
       author_first_name: firstName,
       author_last_initial: lastInitial,
       author_school: profile?.institution || null,
@@ -72,7 +71,7 @@ const CaseStudySubmission = () => {
       key_metrics: metrics.filter((m) => m.label && m.value),
       verdict: form.verdict || null,
       is_published: false,
-    });
+    } as any);
     setSubmitting(false);
 
     if (error) {
