@@ -5,6 +5,7 @@ import SectionFade from "@/components/SectionFade";
 import LiveStudentCounter from "@/components/LiveStudentCounter";
 import CohortCountdown from "@/components/CohortCountdown";
 import CapacityBar from "@/components/CapacityBar";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, MapPin, Calendar, Users, Clock } from "lucide-react";
 
@@ -241,6 +242,22 @@ const FinalCTA = () => (
   </section>
 );
 
+const NewsletterSection = () => (
+  <section className="py-24 md:py-32" style={{ backgroundColor: "#0D1B2A" }}>
+    <div className="container max-w-2xl text-center">
+      <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3">
+        Aprendé algo nuevo cada semana
+      </h2>
+      <p className="text-white/60 mb-10 text-lg">
+        Un concepto financiero explicado de forma simple, directo a tu email.
+      </p>
+      <div className="max-w-md mx-auto text-left">
+        <NewsletterSignup variant="dark" />
+      </div>
+    </div>
+  </section>
+);
+
 const Index = () => (
   <>
     <Hero />
@@ -248,6 +265,7 @@ const Index = () => (
     <ValueProp />
     <HowItWorks />
     <UpcomingClasses />
+    <NewsletterSection />
     <FinalCTA />
   </>
 );
